@@ -1,3 +1,4 @@
+# diagrams   0.8.2
 FROM python:3.7-slim-stretch
 
 ARG diagram_dir=/var/python/diagrams
