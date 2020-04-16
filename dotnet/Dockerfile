@@ -1,4 +1,4 @@
-# 3.1.201
+# 3.1.201 [/usr/share/dotnet/sdk]
 
 FROM mcr.microsoft.com/dotnet/core/sdk:latest
 
