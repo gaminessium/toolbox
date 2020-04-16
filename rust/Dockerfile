@@ -8,7 +8,7 @@ ARG project_dir=/var/project​
 RUN mkdir ${project_dir}
 WORKDIR ${project_dir}
 
-CMD [ "bash" ]
+CMD [ "rustc", "--version" ]
 
 # docker run --rm -ti rust rustc --version
 # docker run --rm -ti rust cargo --version
