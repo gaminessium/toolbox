@@ -30,5 +30,5 @@ RUN airflow initdb
 
 CMD ["bash", "-c", "(airflow webserver & airflow scheduler)"]
 
-# docker build --build-args airflow_cfg=./airflow.cfg -t airflow .
+# docker build --build-arg airflow_cfg=./airflow.cfg -t airflow .
 # docker run --rm -it -p 8080:8080 -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins airflow
