@@ -1,10 +1,6 @@
-#   ____________       _____________
-#  ____    |__( )_________  __/__  /________      __
-# ____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
-# ___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
-#  _/_/  |_/_/  /_/    /_/    /_/  \____/____/|__/  v1.10.9
+# apache-airflow 1.10.10
 
-FROM python:3.7
+FROM python:3.7-slim-buster
 
 ARG airflow_home=/usr/local/airflow
 ARG airflow_cfg=/usr/local/airflow/airflow.cfg
@@ -13,22 +9,28 @@ ENV TZ Asia/Tokyo
 ENV AIRFLOW_HOME=${airflow_home}
 ENV AIRFLOW_CFG=${airflow_cfg}
 
-RUN mkdir ${airflow_home}
-WORKDIR ${airflow_home}
+RUN mkdir ${AIRFLOW_HOME}
+WORKDIR ${AIRFLOW_HOME}
 
 COPY ${AIRFLOW_CFG} ./airflow.cfg
 
+# apt リポジトリの更新
 RUN set -x && \
-sed -i -e 's%http://.*.ubuntu.com%http://ftp.jaist.ac.jp/pub/Linux%g' /etc/apt/sources.list && \
-apt update && \
-apt install -y --no-install-recommends libssl-dev libkrb5-dev libsasl2-dev && \
-apt install -y --no-install-recommends default-mysql-client default-libmysqlclient-dev python3-mysqldb && \
-apt -y clean && \
-pip install mysql-connector-python "apache-airflow[mysql]"
+echo 'deb http://ftp.jp.debian.org/debian buster-updates main contrib' > sources.list && \
+apt update
+
+RUN set -x && \
+apt install -y --no-install-recommends build-essential libssl-dev libkrb5-dev libsasl2-dev && \
+apt install -y --no-install-recommends python3-dev python3-distutils-extra && \
+apt install -y --no-install-recommends default-mysql-client default-libmysqlclient-dev python3-mysqldb
+
+RUN set -x && \
+pip install PyMySQL mysqlclient mysql-connector-python && \
+pip install sqlalchemy apache-airflow[mysql,celery,crypto]
 
 RUN airflow initdb
 
 CMD ["bash", "-c", "(airflow webserver & airflow scheduler)"]
 
-# docker build --build-arg airflow_cfg=./airflow.cfg -t airflow .
-# docker run --rm -it -p 8080:8080 -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins airflow
+# docker build --build-arg airflow_cfg=./airflow.cfg -t airflow ./
+# docker run --rm -ti -p 8080:8080 -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins airflow
