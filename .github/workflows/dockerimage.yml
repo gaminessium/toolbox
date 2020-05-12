@@ -18,7 +18,7 @@ jobs:
         run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
 
       - name: Start Rust container
-        run: docker run --detach -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev bash
+        run: docker run --detach --interactive -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev bash
 
       - name: Create Rust project
         working-directory: /tmp
