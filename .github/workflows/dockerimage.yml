@@ -17,9 +17,12 @@ jobs:
       - name: Build the Docker image
         run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
 
+      - name: Start Rust container
+        run: docker run --detach -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev bash
+
       - name: Create Rust project
         working-directory: /tmp
-        run: docker run --detach -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
+        run: docker exec --detach -w /var/rust rust:dev cargo new test
 
       - name: Permission test
         working-directory: /tmp
