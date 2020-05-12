@@ -16,4 +16,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Build the Docker image
-      run: docker build ./rust --file Dockerfile --tag rust:dev
+      run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
