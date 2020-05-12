@@ -14,10 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Build the Docker image
+      run: docker build ./rust --file Dockerfile --tag rust:dev
+
+    - name: Rust container test
       run: |
-        cd rust
-        docker build . --file Dockerfile --tag rust:dev
-        docker run -ti -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
+        docker run -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
         ls -ld test
         rm -r test
