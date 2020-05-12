@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Build the Docker image
+      - name: Check out repository
         uses: actions/checkout@v2
+ 
+      - name: Build the Docker image
         run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
 
       - name: Create Rust project
-        uses: actions/checkout@v2
         working-directory: /tmp
         run: docker run --detach -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
 
       - name: Permission test
-        uses: actions/checkout@v2
         working-directory: /tmp
         run: |
           pwd
