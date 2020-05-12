@@ -7,10 +7,10 @@ on:
     branches: [ master ]
 
 defaults:
-  runs-on: ubuntu-latest
   working-directory: /tmp
 
 jobs:
+  runs-on: ubuntu-latest
 
   build:
     steps:
