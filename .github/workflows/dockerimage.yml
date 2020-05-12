@@ -25,6 +25,7 @@ jobs:
     - name: Permission test
       working-directory: /tmp
       run: |
+        pwd
         ls -ld ./
         ls -ld test
         rm -r test
