@@ -17,3 +17,9 @@ jobs:
 
     - name: Build the Docker image
       run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
+
+    - name: Rust container test
+      run: |
+        docker run -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
+        ls -ld test
+        rm -r test
