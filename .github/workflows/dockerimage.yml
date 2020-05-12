@@ -21,9 +21,8 @@ jobs:
       - run: docker exec --detach -w /var/rust rust_dev cargo new test
 
       - name: Permission test
-        working-directory: /tmp
         run: |
           pwd
-          ls -ld ./
-          ls -ld test
-          rm -r test
+          ls -ld ../*
+          # ls -ld test
+          # rm -r test
