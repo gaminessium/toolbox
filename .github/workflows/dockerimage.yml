@@ -23,6 +23,6 @@ jobs:
       - name: Permission test
         run: |
           pwd
-          ls -ld ../*
+          ls -l ../*
           # ls -ld test
           # rm -r test
