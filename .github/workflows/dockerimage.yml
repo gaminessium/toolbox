@@ -6,12 +6,13 @@ on:
   pull_request:
     branches: [ master ]
 
+defaults:
+  runs-on: ubuntu-latest
+  working-directory: /tmp
+
 jobs:
 
   build:
-
-    runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
 
@@ -19,11 +20,9 @@ jobs:
       run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
 
     - name: Create Rust project
-      working-directory: /tmp
       run: docker run --detach -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
 
     - name: Permission test
-      working-directory: /tmp
       run: |
         pwd
         ls -ld ./
