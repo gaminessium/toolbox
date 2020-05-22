@@ -18,7 +18,7 @@ jobs:
         run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
 
       - name: Create Rust project
-        run: docker run -d -v $(pwd)/rust:/var/rust -w /var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo new dummy
+        run: docker run -v $(pwd)/rust:/var/rust -w /var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo new dummy
 
       - name: Project permission test
         run: |
