@@ -18,13 +18,12 @@ jobs:
         run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
 
       - name: Create Rust project
-        working-directory: /tmp
         run: |
           docker run --name rust_dev -dti -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev bash
           docker exec -d -w /var/rust rust_dev cargo new test
           sleep 90
           docker exec -i -w /var/rust rust_dev pwd
-          docker exec -i -w /var/rust rust_dev ls -lR
+          docker exec -i -w /var/rust rust_dev ls -lR ./
           pwd
           ls -l ./
           # ls -ld test
