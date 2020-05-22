@@ -19,12 +19,6 @@ jobs:
 
       - name: Create Rust project
         run: |
-          docker run --name rust_dev -dti -v $(pwd)/rust:/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev bash
-          docker exec -d -w /var/rust -e USER=$USER rust_dev cargo new dummy
-          sleep 90
-          docker exec -i -w /var/rust rust_dev pwd
-          docker exec -i -w /var/rust -e USER=$USER rust_dev ls -lR ./
-          pwd
-          ls -l $(pwd)/rust
-          # ls -ld test
-          # rm -r test
+          docker run --name rust_dev -v $(pwd)/rust:/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev  cargo new dummy
+          ls -ld $(pwd)/rust/dummy
+          rm -r $(pwd)/rust/dummy
