@@ -23,8 +23,9 @@ jobs:
           docker run --name rust_dev -dti -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev bash
           docker exec -d -w /var/rust rust_dev cargo new test
           sleep 90
-          docker exec -d -w /var/rust rust_dev ls -lR
+          docker exec -i -w /var/rust rust_dev pwd
+          docker exec -i -w /var/rust rust_dev ls -lR
           pwd
-          ls -lR ./
+          ls -l ./
           # ls -ld test
           # rm -r test
