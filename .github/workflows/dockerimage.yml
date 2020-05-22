@@ -20,8 +20,9 @@ jobs:
       - name: Create Rust project
         working-directory: /tmp
         run: |
-          docker run --detach -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
+          docker run --name rust_dev --detach -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust:dev cargo new test
           sleep 90
+          docker exec -d -w /var/rust rust_dev ls -lR
           pwd
           ls -lR ./
           # ls -ld test
