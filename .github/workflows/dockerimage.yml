@@ -17,8 +17,11 @@ jobs:
       - name: Build the Docker image
         run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
 
-      - name: Create Rust project
+      - name: Create project
         run: docker run -v $(pwd)/rust:/var/rust -w /var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo new dummy
+
+      - name: Run project
+        run: docker run -v $(pwd)/rust:/var/rust -w /var/rust/dummy -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo run
 
       - name: Project permission test
         run: |
