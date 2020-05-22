@@ -20,10 +20,10 @@ jobs:
       - name: Create Rust project
         run: |
           docker run --name rust_dev -dti -v /tmp:/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev bash
-          docker exec -d -w /var/rust rust_dev -e USER=$USER cargo new test
+          docker exec -d -w /var/rust -e USER=$USER rust_dev cargo new test
           sleep 90
           docker exec -i -w /var/rust rust_dev pwd
-          docker exec -i -w /var/rust rust_dev -e USER=$USER ls -lR ./
+          docker exec -i -w /var/rust -e USER=$USER rust_dev ls -lR ./
           pwd
           ls -l ./tmp
           # ls -ld test
