@@ -22,17 +22,17 @@ echo 'deb http://ftp.jp.debian.org/debian/ buster main contrib non-free' > sourc
 apt-get update
 
 RUN set -x && \
-apt install -y --no-install-recommends build-essential libssl-dev libkrb5-dev libsasl2-dev && \
-apt install -y --no-install-recommends python3-dev python3-distutils-extra && \
-apt install -y --no-install-recommends default-mysql-client default-libmysqlclient-dev python3-mysqldb
+apt-get install -y --no-install-recommends build-essential python3-distutils && \
+apt-get clean
 
 RUN set -x && \
-pip install PyMySQL mysqlclient mysql-connector-python && \
-pip install sqlalchemy apache-airflow[mysql,celery,crypto]
+pip install apache-airflow==${airflow_version}
 
 RUN airflow initdb
 
-CMD ["bash", "-c", "(airflow webserver & airflow scheduler)"]
+ENTRYPOINT [ "airflow" ]
+
+CMD ["webserver"]
 
 # docker build --build-arg airflow_cfg=./airflow.cfg -t airflow ./
 # docker run --rm -ti -p 8080:8080 -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins airflow
