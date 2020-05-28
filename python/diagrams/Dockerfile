@@ -10,7 +10,7 @@ WORKDIR ${DIAGRAM_DIR}
 ADD https://ipafont.ipa.go.jp/IPAexfont/ipaexg00401.zip /root/.fonts/ipafont.zip
 
 RUN set -x && \
-echo 'deb http://ftp.jp.debian.org/debian buster-updates main contrib' > sources.list && \
+echo 'deb http://ftp.jp.debian.org/debian/ buster main contrib non-free' > sources.list && \
 apt-get update && \
 apt-get install -y unzip graphviz && \
 pip install diagrams
