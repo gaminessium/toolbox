@@ -1,5 +1,5 @@
 # diagrams   0.8.2
-FROM python:3.7-slim-stretch
+FROM python:3.7-slim-buster
 
 ARG diagram_dir=/var/python/diagrams
 ENV DIAGRAM_DIR=${diagram_dir}
