@@ -11,8 +11,8 @@ ADD https://ipafont.ipa.go.jp/IPAexfont/ipaexg00401.zip /root/.fonts/ipafont.zip
 
 RUN set -x && \
 echo 'deb http://ftp.jp.debian.org/debian buster-updates main contrib' > sources.list && \
-apt update && \
-apt install -y unzip graphviz && \
+apt-get update && \
+apt-get install -y unzip graphviz && \
 pip install diagrams
 
 # 日本語フォントの展開とインストール
