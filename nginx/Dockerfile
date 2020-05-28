@@ -6,7 +6,9 @@ ARG nginx_conf=/etc/nginx/nginx.conf
 
 WORKDIR ${project_dir}
 
-CMD [ "nginx", "-v" ]
+ENTRYPOINT [ "nginx" ]
+
+CMD [ "-v" ]
 
 # docker build -t nginx .
 
