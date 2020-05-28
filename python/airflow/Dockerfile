@@ -18,8 +18,8 @@ COPY ${AIRFLOW_CFG} ./airflow.cfg
 
 # apt リポジトリの更新
 RUN set -x && \
-echo 'deb http://ftp.jp.debian.org/debian buster-updates main contrib' > sources.list && \
-apt update
+echo 'deb http://ftp.jp.debian.org/debian/ buster main contrib non-free' > sources.list && \
+apt-get update
 
 RUN set -x && \
 apt install -y --no-install-recommends build-essential libssl-dev libkrb5-dev libsasl2-dev && \
