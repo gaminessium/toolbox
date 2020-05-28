@@ -2,8 +2,8 @@
 
 FROM python:3.7-slim-buster
 
-ARG airflow_home=/usr/local/airflow
-ARG airflow_cfg=/usr/local/airflow/airflow.cfg
+ARG airflow_home=/airflow
+ARG airflow_cfg=./airflow.cfg
 
 ENV TZ Asia/Tokyo
 ENV AIRFLOW_HOME=${airflow_home}
