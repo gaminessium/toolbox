@@ -2,10 +2,12 @@
 
 FROM python:3.7-slim-buster
 
+ARG airflow_version=1.10.10
 ARG airflow_home=/airflow
 ARG airflow_cfg=./airflow.cfg
 
 ENV TZ Asia/Tokyo
+ENV AIRFLOW_VERSION=${airflow_version}
 ENV AIRFLOW_HOME=${airflow_home}
 ENV AIRFLOW_CFG=${airflow_cfg}
 
