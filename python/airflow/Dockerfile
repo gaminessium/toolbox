@@ -11,15 +11,15 @@ ENV AIRFLOW_VERSION=${airflow_version}
 ENV AIRFLOW_HOME=${airflow_home}
 ENV AIRFLOW_CFG=${airflow_cfg}
 
-RUN mkdir ${AIRFLOW_HOME}
-WORKDIR ${AIRFLOW_HOME}
-
-COPY ${AIRFLOW_CFG} ./airflow.cfg
-
 # apt リポジトリの更新
 RUN set -x && \
 echo 'deb http://ftp.jp.debian.org/debian/ buster main contrib non-free' > sources.list && \
 apt-get update
+
+RUN mkdir ${AIRFLOW_HOME}
+WORKDIR ${AIRFLOW_HOME}
+
+COPY ${AIRFLOW_CFG} ./airflow.cfg
 
 RUN set -x && \
 apt-get install -y --no-install-recommends build-essential python3-distutils && \
