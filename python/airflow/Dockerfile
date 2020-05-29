@@ -17,11 +17,6 @@ echo 'deb http://ftp.jp.debian.org/debian/ buster main contrib non-free' > sourc
 apt-get update
 
 # Install Airflow
-RUN mkdir ${AIRFLOW_HOME}
-WORKDIR ${AIRFLOW_HOME}
-
-COPY ${AIRFLOW_CFG} ./airflow.cfg
-
 RUN apt-get install -y --no-install-recommends build-essential python3-distutils
 
 RUN pip install apache-airflow==${airflow_version}
@@ -29,6 +24,11 @@ RUN pip install apache-airflow==${airflow_version}
 RUN apt-get clean
 
 # Initialize Airflow
+RUN mkdir ${AIRFLOW_HOME}
+WORKDIR ${AIRFLOW_HOME}
+
+COPY ${AIRFLOW_CFG} ./airflow.cfg
+
 RUN airflow initdb
 
 ENTRYPOINT [ "airflow" ]
