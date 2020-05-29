@@ -11,11 +11,12 @@ ENV AIRFLOW_VERSION=${airflow_version}
 ENV AIRFLOW_HOME=${airflow_home}
 ENV AIRFLOW_CFG=${airflow_cfg}
 
-# apt リポジトリの更新
+# Update apt repository
 RUN set -x && \
 echo 'deb http://ftp.jp.debian.org/debian/ buster main contrib non-free' > sources.list && \
 apt-get update
 
+# Install Airflow
 RUN mkdir ${AIRFLOW_HOME}
 WORKDIR ${AIRFLOW_HOME}
 
@@ -29,6 +30,7 @@ pip install apache-airflow==${airflow_version}
 
 RUN apt-get clean
 
+# Initialize Airflow
 RUN airflow initdb
 
 ENTRYPOINT [ "airflow" ]
