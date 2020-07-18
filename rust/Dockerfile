@@ -1,7 +1,7 @@
-# rustc 1.42.0 (b8cedc004 2020-03-09)
-# cargo 1.42.0 (86334295e 2020-01-31)
+# cargo 1.45.0 (744bd1fbb 2020-06-15)
+# rustc 1.45.0 (5c1f21c3b 2020-07-13)
 
-FROM rust:1.31
+FROM rust:slim
 
 ARG project_dir=/var/project​
 
