@@ -16,7 +16,8 @@ USER ${user}
 
 WORKDIR ${project_dir}
 
-CMD [ "dotnet", "--list-sdks" ]
+ENTRYPOINT [ "dotnet" ]
+CMD [ "--help" ]
 
 # docker build --build-arg user=$USER -t dotnet .
 # docker run --rm -ti dotnet dotnet --version
