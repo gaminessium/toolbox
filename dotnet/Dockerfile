@@ -1,6 +1,6 @@
 # 3.1.201 [/usr/share/dotnet/sdk]
 
-FROM mcr.microsoft.com/dotnet/core/sdk:latest
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim
 
 ARG project_dir=/var/project
 ARG user=developer
