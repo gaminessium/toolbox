@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  dotnet:
+    build:
+      context: ./dotnet
+    ports:
+      - 5000:5000
+      - 5001:5001
