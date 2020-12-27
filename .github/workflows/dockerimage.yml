@@ -43,7 +43,7 @@ jobs:
 
       - name: Run project
         run: |
-          docker-compose run --rm -d -v $(pwd)/nodejs/hexo:/var/project/hexo -w /var/project/hexo/myblog hexo server
+          docker-compose run --rm -d -v $(pwd)/nodejs/hexo:/var/project/hexo -u $(id -u $USER):$(id -g $USER) -w /var/project/hexo/blog_sample -p 4000:4000 hexo server
           sleep 10
           wget -S --timeout=10 localhost:4000
 
