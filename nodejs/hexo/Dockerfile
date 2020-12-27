@@ -7,8 +7,8 @@ ARG project_dir=/var/project/hexo
 ENV PROJECT_DIR=${project_dir}
 
 RUN set -x && \
-npm install -g hexo-cli && \
-mkdir -p ${project_dir}
+   npm install -g hexo-cli && \
+   mkdir -p ${project_dir}
 
 WORKDIR ${project_dir}
 
