@@ -13,3 +13,9 @@ services:
       context: ./rust
     environment:
       - USER=$USER
+
+  hexo:
+    build:
+      context: ./nodejs/hexo
+    ports:
+      - 4000:4000

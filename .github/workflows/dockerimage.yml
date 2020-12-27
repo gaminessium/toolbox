@@ -27,3 +27,26 @@ jobs:
         run: |
           ls -ld $(pwd)/rust/rust_sample
           rm -r $(pwd)/rust/rust_sample
+
+  test_hexo_container:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+ 
+      - name: Build the Docker image
+        run: docker-compose build hexo
+
+      - name: Create project
+        run: docker-compose run --rm -v $(pwd)/nodejs/hexo:/var/project/hexo -u $(id -u $USER):$(id -g $USER) hexo init blog_sample
+
+      - name: Run project
+        run: |
+          docker-compose run --rm -d -v $(pwd)/nodejs/hexo:/var/project/hexo -w /var/project/hexo/myblog hexo server
+          wget -S --timeout=10 localhost:4000
+
+      - name: Project permission test
+        run: |
+          ls -ld $(pwd)/nodejs/hexo/blog_sample
+          rm -r $(pwd)/nodejs/hexo/blog_sample
