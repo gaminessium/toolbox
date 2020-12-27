@@ -3,9 +3,9 @@
 
 FROM rust:slim
 
-ARG project_dir=/var/project​
+ARG project_dir=/var/rust
 
-RUN mkdir ${project_dir}
+RUN mkdir -p ${project_dir}
 WORKDIR ${project_dir}
 
 CMD [ "rustc", "--version" ]
