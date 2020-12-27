@@ -11,6 +11,7 @@ RUN set -x && \
    mkdir -p ${project_dir}
 
 WORKDIR ${project_dir}
+RUN hexo version
 
 CMD [ "bash" ]
 
