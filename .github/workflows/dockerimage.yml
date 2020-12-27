@@ -18,7 +18,7 @@ jobs:
         run: docker-compose build rust
 
       - name: Create project
-        run: docker-compose run --rm -v $(pwd)/rust:/var/rust rust cargo new rust_sample
+        run: docker-compose run --rm -v $(pwd)/rust:/var/rust -u $(id -u $USER) rust cargo new rust_sample
 
       - name: Run project
         run: docker-compose run --rm -v $(pwd)/rust:/var/rust -w /var/rust/rust_sample rust cargo run
