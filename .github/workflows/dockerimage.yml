@@ -44,6 +44,7 @@ jobs:
       - name: Run project
         run: |
           docker-compose run --rm -d -v $(pwd)/nodejs/hexo:/var/project/hexo -w /var/project/hexo/myblog hexo server
+          sleep 10
           wget -S --timeout=10 localhost:4000
 
       - name: Project permission test
