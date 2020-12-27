@@ -15,15 +15,15 @@ jobs:
         uses: actions/checkout@v2
  
       - name: Build the Docker image
-        run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
+        run: docker-compose build rust
 
       - name: Create project
-        run: docker run --rm -v $(pwd)/rust:/var/rust -w /var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo new dummy
+        run: docker-compose run --rm -v $(pwd)/rust:/var/rust rust cargo new rust_sample
 
       - name: Run project
-        run: docker run --rm -v $(pwd)/rust:/var/rust -w /var/rust/dummy -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo run
+        run: docker-compose run --rm -v $(pwd)/rust:/var/rust rust cargo run
 
       - name: Project permission test
         run: |
-          ls -ld $(pwd)/rust/dummy
-          rm -r $(pwd)/rust/dummy
+          ls -ld $(pwd)/rust/rust_sample
+          rm -r $(pwd)/rust/rust_sample
