@@ -8,12 +8,13 @@ ENV PROJECT_DIR=${project_dir}
 
 RUN set -x && \
    npm install -g hexo-cli && \
-   mkdir -p ${project_dir}
+   mkdir -p ${project_dir} && \
+   hexo version
 
 WORKDIR ${project_dir}
-RUN hexo version
 
-CMD [ "bash" ]
+ENTRYPOINT [ "hexo" ]
+CMD [ "help" ]
 
 # docker build -t hexo:writer .
 # docker run --rm -u $(id -u) -ti -v $(pwd):/var/project/hexo hexo:writer hexo init myblog
