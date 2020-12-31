@@ -15,15 +15,38 @@ jobs:
         uses: actions/checkout@v2
  
       - name: Build the Docker image
-        run: docker build ./rust --file ./rust/Dockerfile --tag rust:dev
+        run: docker-compose build rust
 
       - name: Create project
-        run: docker run --rm -v $(pwd)/rust:/var/rust -w /var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo new dummy
+        run: docker-compose run --rm -v $(pwd)/rust:/var/rust -u $(id -u $USER):$(id -g $USER) rust cargo new rust_sample
 
       - name: Run project
-        run: docker run --rm -v $(pwd)/rust:/var/rust -w /var/rust/dummy -u $(id -u $USER):$(id -g $USER) -e USER=$USER rust:dev cargo run
+        run: docker-compose run --rm -v $(pwd)/rust:/var/rust -u $(id -u $USER):$(id -g $USER) -w /var/rust/rust_sample rust cargo run
 
       - name: Project permission test
         run: |
-          ls -ld $(pwd)/rust/dummy
-          rm -r $(pwd)/rust/dummy
+          ls -ld $(pwd)/rust/rust_sample
+          rm -r $(pwd)/rust/rust_sample
+
+  test_hexo_container:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+ 
+      - name: Build the Docker image
+        run: docker-compose build hexo
+
+      - name: Create project
+        run: docker-compose run --rm -v $(pwd)/nodejs/hexo:/var/project/hexo -u $(id -u $USER):$(id -g $USER) hexo init blog_sample
+
+      - name: Run project
+        run: |
+          docker-compose run --rm -d -v $(pwd)/nodejs/hexo:/var/project/hexo -u $(id -u $USER):$(id -g $USER) -w /var/project/hexo/blog_sample -p 4000:4000 hexo server
+          wget -S --tries=5 localhost:4000
+
+      - name: Project permission test
+        run: |
+          ls -ld $(pwd)/nodejs/hexo/blog_sample
+          rm -r $(pwd)/nodejs/hexo/blog_sample

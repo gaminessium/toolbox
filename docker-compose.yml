@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  dotnet:
+    build:
+      context: ./dotnet
+    ports:
+      - 5000:5000
+      - 5001:5001
+
+  rust:
+    build:
+      context: ./rust
+    environment:
+      - USER=$USER
+
+  hexo:
+    build:
+      context: ./nodejs/hexo
+    ports:
+      - 4000:4000

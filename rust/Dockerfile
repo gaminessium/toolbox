@@ -3,15 +3,9 @@
 
 FROM rust:slim
 
-ARG project_dir=/var/project​
+ARG project_dir=/var/rust
 
-RUN mkdir ${project_dir}
+RUN mkdir -p ${project_dir}
 WORKDIR ${project_dir}
 
 CMD [ "rustc", "--version" ]
-
-# docker run --rm -ti rust rustc --version
-# docker run --rm -ti rust cargo --version
-
-# docker run --rm -ti -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust cargo new sample
-# docker run --rm -ti -v $(pwd):/var/rust -u $(id -u $USER):$(id -g $USER) -e USER=$USER -w /var/rust rust cargo run sample
